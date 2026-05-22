@@ -16,7 +16,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-black selection:bg-[#9A81F2] selection:text-white text-white">
+    <main className="relative min-h-screen w-full overflow-hidden bg-transparent selection:bg-[#9A81F2] selection:text-white text-white">
       {/* 3D Background */}
       <Scene />
 
