@@ -1,210 +1,241 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Calendar, CheckCircle, Shield, Users, Zap } from "lucide-react";
-import Scene from "@/components/Scene";
+import { ReactLenis } from 'lenis/react';
+import { useTransform, motion, useScroll, MotionValue } from 'framer-motion';
+import { useRef } from 'react';
+import Image from 'next/image';
+import Scene from '@/components/Scene';
 
-export default function Home() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-  };
+const features = [
+  {
+    title: 'Role-Based Access Control',
+    description:
+      'Strict separation between Student and Class Representative (CR) workflows. CRs hold the keys to class management, while students enjoy a read-only, distraction-free environment locked behind secure access codes.',
+    src: 'security.jpg',
+    link: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=500&auto=format&fit=crop',
+    color: '#5196fd',
+  },
+  {
+    title: 'Note & Syllabus Sharing',
+    description:
+      'A single source of truth for all study materials. Students can upload their notes for CR approval, ensuring high-quality resources. Store syllabus PDFs and access them anytime through our Supabase cloud storage.',
+    src: 'notes.jpg',
+    link: 'https://images.unsplash.com/photo-1517842645767-c639042777db?w=500&auto=format&fit=crop',
+    color: '#8f89ff',
+  },
+  {
+    title: 'Dynamic Live Timetables',
+    description:
+      'Say goodbye to confusing WhatsApp groups. Real-time timetable updates with cancellation and transfer notices instantly synced to every student in the class.',
+    src: 'timetable.jpg',
+    link: 'https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=500&auto=format&fit=crop',
+    color: '#13006c',
+  },
+  {
+    title: 'Exams & Assignments Tracker',
+    description:
+      'Track deadlines, view syllabus PDFs, and keep the whole class synchronized with an interactive assignment dashboard. Never miss a submission again.',
+    src: 'exams.jpg',
+    link: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&auto=format&fit=crop',
+    color: '#ed649e',
+  },
+  {
+    title: 'Automated Profile Sync',
+    description:
+      'Onboarding made simple. Joining a class automatically syncs the student\'s profile with the class\'s academic year, semester, branch, and division. No manual data entry required.',
+    src: 'profile.jpg',
+    link: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop',
+    color: '#fd521a',
+  },
+];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-  };
+export default function Home(): JSX.Element {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end end'],
+  });
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-transparent selection:bg-[#9A81F2] selection:text-white text-white">
-      {/* 3D Background */}
-      <Scene />
+    <ReactLenis root>
+      <main className='relative w-full bg-transparent' ref={container}>
+        {/* Animated Background */}
+        <Scene />
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full p-6 z-50 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#9A81F2] to-[#6BC5A0] shadow-lg shadow-[#9A81F2]/20 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">C</span>
+        {/* Navigation */}
+        <nav className="fixed top-0 left-0 w-full p-6 z-50 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#9A81F2] to-[#6BC5A0] shadow-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">C</span>
+            </div>
+            <span className="font-bold text-xl text-white tracking-tight drop-shadow-md">ClassCR</span>
           </div>
-          <span className="font-bold text-xl text-white tracking-tight">ClassCR</span>
-        </div>
-        <button 
-          onClick={() => window.open('https://the-class.vercel.app', '_blank')}
-          className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-[14px] hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-        >
-          Launch App
-        </button>
-      </nav>
+          <button 
+            onClick={() => window.open('https://the-class.vercel.app', '_blank')}
+            className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-[14px] hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+          >
+            Launch App
+          </button>
+        </nav>
 
-      {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-20">
-        <motion.div 
-          className="max-w-4xl mx-auto text-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-lg mb-8">
-            <span className="w-2 h-2 rounded-full bg-[#6BC5A0] animate-pulse shadow-[0_0_10px_#6BC5A0]" />
-            <span className="text-[12px] font-bold text-white/80 uppercase tracking-wider">The Future of Classroom Management</span>
+        {/* Hero Section */}
+        <section className='text-white h-[100vh] w-full flex flex-col items-center justify-center relative'>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center z-10"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg mb-8">
+              <span className="w-2 h-2 rounded-full bg-[#6BC5A0] animate-pulse shadow-[0_0_10px_#6BC5A0]" />
+              <span className="text-[12px] font-bold text-white uppercase tracking-wider">The Future of Classroom Management</span>
+            </div>
+            <h1 className='text-5xl md:text-8xl font-extrabold text-center tracking-tight leading-[110%] drop-shadow-2xl mb-6'>
+              Empower Your <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9A81F2] to-[#FF9A76]">
+                Workflow.
+              </span>
+            </h1>
+            <p className="text-lg md:text-2xl text-white/80 font-medium max-w-2xl mx-auto drop-shadow-md">
+              Scroll down to discover the features that make ClassCR the ultimate tool for Class Representatives. 👇
+            </p>
           </motion.div>
-          
-          <motion.h1 variants={itemVariants} className="text-[50px] md:text-[80px] font-extrabold text-white leading-[1.1] tracking-tight mb-6 drop-shadow-2xl">
-            Empower Your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9A81F2] to-[#FF9A76]">
-              Classroom Workflow
-            </span>
-          </motion.h1>
+        </section>
 
-          <motion.p variants={itemVariants} className="text-[18px] md:text-[22px] text-white/60 font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
-            ClassCR bridges the gap between Class Representatives and students. Share notes, track timetables, and manage assignments in one beautiful, real-time platform.
-          </motion.p>
+        {/* Stacking Cards Section */}
+        <section className='w-full text-white pb-32'>
+          {features.map((feature, i) => {
+            const targetScale = 1 - (features.length - i) * 0.05;
+            return (
+              <Card
+                key={`p_${i}`}
+                i={i}
+                url={feature.link}
+                src={feature.src}
+                title={feature.title}
+                color={feature.color}
+                description={feature.description}
+                progress={scrollYProgress}
+                range={[i * 0.25, 1]}
+                targetScale={targetScale}
+              />
+            );
+          })}
+        </section>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        {/* Footer */}
+        <footer className='group relative w-full overflow-hidden bg-black/50 backdrop-blur-md border-t border-white/10'>
+          <h1 className='text-[14vw] pt-20 pb-10 leading-[100%] uppercase font-black text-center text-transparent bg-clip-text bg-gradient-to-b from-white/80 to-white/10 transition-all ease-linear'>
+            ClassCR
+          </h1>
+          <div className='relative z-10 flex flex-col items-center justify-center pb-12 gap-4'>
             <button 
               onClick={() => window.open('https://the-class.vercel.app', '_blank')}
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#9A81F2] text-white font-bold text-[16px] hover:bg-[#886ee3] transition-colors shadow-lg shadow-[#9A81F2]/30 flex items-center justify-center gap-2 hover:-translate-y-1"
+              className="px-8 py-4 rounded-full bg-white text-black font-bold text-[18px] hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]"
             >
-              Launch Platform <ArrowRight className="w-5 h-5" />
+              Start Using ClassCR Today
             </button>
-            <button 
-              onClick={() => window.open('https://github.com/Sujal1057/the-class', '_blank')}
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 text-white font-bold text-[16px] hover:bg-white/20 transition-colors shadow-sm border border-white/10 flex items-center justify-center gap-2 hover:-translate-y-1 backdrop-blur-md"
-            >
-              View GitHub
-            </button>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="relative z-10 py-32 px-4 bg-gradient-to-b from-transparent via-black/80 to-black backdrop-blur-sm">
-        <motion.div 
-          className="max-w-6xl mx-auto"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="text-center mb-20">
-            <h2 className="text-[36px] md:text-[48px] font-bold text-white tracking-tight mb-4 drop-shadow-lg">
-              Everything you need,<br />nothing you don't.
-            </h2>
+            <p className="font-medium text-sm text-white/40 mt-4">© 2026 ClassCR. Designed for the modern classroom.</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FeatureCard 
-              icon={<BookOpen className="w-6 h-6 text-[#9A81F2]" />}
-              title="Note Sharing"
-              desc="Students upload notes, CRs approve them. A single source of truth for all study materials."
-              color="bg-[#9A81F2]/10"
-            />
-            <FeatureCard 
-              icon={<Calendar className="w-6 h-6 text-[#FF9A76]" />}
-              title="Dynamic Timetable"
-              desc="Real-time updates for cancelled or transferred classes. Never miss an announcement again."
-              color="bg-[#FF9A76]/10"
-            />
-            <FeatureCard 
-              icon={<CheckCircle className="w-6 h-6 text-[#6BC5A0]" />}
-              title="Assignments & Exams"
-              desc="Track deadlines, view syllabus PDFs, and keep the whole class synchronized."
-              color="bg-[#6BC5A0]/10"
-            />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Security & Workflow Section */}
-      <section className="relative z-10 py-32 px-4 bg-black border-t border-white/5">
-        <motion.div 
-          className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="flex-1 space-y-8">
-            <h2 className="text-[36px] md:text-[48px] font-bold text-white tracking-tight leading-[1.1] drop-shadow-xl">
-              Built with <br />Security First.
-            </h2>
-            <div className="space-y-6">
-              <WorkflowItem 
-                icon={<Shield className="w-5 h-5 text-black" />}
-                title="Role-Based Access"
-                desc="Strict separation between Student and CR workflows. CRs hold the keys to class management."
-                color="bg-white"
-              />
-              <WorkflowItem 
-                icon={<Zap className="w-5 h-5 text-white" />}
-                title="Real-time Synchronization"
-                desc="Powered by Supabase, all approvals, note uploads, and announcements instantly appear."
-                color="bg-[#9A81F2]"
-              />
-              <WorkflowItem 
-                icon={<Users className="w-5 h-5 text-white" />}
-                title="Access Code Protection"
-                desc="Classes are locked behind unique access codes and manual CR approval. No uninvited guests."
-                color="bg-[#FF9A76]"
-              />
-            </div>
-          </div>
-          <div className="flex-1 relative w-full h-[500px] rounded-[40px] bg-[#1a1a1a] overflow-hidden shadow-[0_0_50px_rgba(154,129,242,0.1)] flex items-center justify-center border border-white/10">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#9A81F2]/10 to-[#FF9A76]/10 opacity-50"></div>
-            <div className="text-center p-8 relative z-10">
-              <div className="w-24 h-24 rounded-3xl bg-[#0a0a0a] border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)] mx-auto mb-6 flex items-center justify-center rotate-12 hover:rotate-0 transition-transform duration-500">
-                <span className="text-4xl drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">🚀</span>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Production Ready</h3>
-              <p className="text-white/50 font-medium mb-6">Fully deployed on Vercel with a live Supabase backend.</p>
-              <button 
-                onClick={() => window.open('https://the-class.vercel.app', '_blank')}
-                className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-[14px] hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-              >
-                Launch Now
-              </button>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-black py-12 px-6 text-center text-white/30 border-t border-white/5">
-        <p className="font-medium text-sm">© 2026 ClassCR. Designed for the modern classroom.</p>
-      </footer>
-    </main>
+        </footer>
+      </main>
+    </ReactLenis>
   );
 }
 
-function FeatureCard({ icon, title, desc, color }: { icon: React.ReactNode, title: string, desc: string, color: string }) {
+interface CardProps {
+  i: number;
+  title: string;
+  description: string;
+  src: string;
+  url: string;
+  color: string;
+  progress: MotionValue<number>;
+  range: [number, number];
+  targetScale: number;
+}
+
+const Card: React.FC<CardProps> = ({
+  i,
+  title,
+  description,
+  src,
+  url,
+  color,
+  progress,
+  range,
+  targetScale,
+}) => {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start end', 'start start'],
+  });
+
+  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
+  const scale = useTransform(progress, range, [1, targetScale]);
+
   return (
-    <motion.div 
-      whileHover={{ y: -8 }}
-      className="p-8 rounded-[32px] bg-[#111111] border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:border-white/20 hover:shadow-[0_0_40px_rgba(154,129,242,0.15)] transition-all duration-300"
+    <div
+      ref={container}
+      className='h-screen flex items-center justify-center sticky top-0'
     >
-      <div className={`w-14 h-14 rounded-2xl ${color} flex items-center justify-center mb-6`}>
-        {icon}
-      </div>
-      <h3 className="text-[20px] font-bold text-white mb-3">{title}</h3>
-      <p className="text-[15px] font-medium text-white/50 leading-relaxed">
-        {desc}
-      </p>
-    </motion.div>
-  );
-}
+      <motion.div
+        style={{
+          backgroundColor: color,
+          scale,
+          top: `calc(-5vh + ${i * 25}px)`,
+        }}
+        className={`flex flex-col relative -top-[15%] md:-top-[25%] h-[500px] w-[90%] md:w-[75%] rounded-3xl lg:p-10 sm:p-6 p-4 origin-top shadow-2xl border border-white/20`}
+      >
+        <h2 className='text-3xl md:text-4xl text-center font-bold mb-4 drop-shadow-md'>{title}</h2>
+        <div className={`flex flex-col-reverse md:flex-row h-full mt-2 gap-6 md:gap-10 items-center`}>
+          <div className={`w-full md:w-[40%] flex flex-col justify-center`}>
+            <p className='text-[16px] md:text-lg leading-relaxed text-white/90 drop-shadow-sm'>
+              {description}
+            </p>
+            <span className='flex items-center gap-2 pt-6'>
+              <a
+                href='https://the-class.vercel.app'
+                target='_blank'
+                rel='noreferrer'
+                className='underline font-bold cursor-pointer text-white hover:text-white/80 transition-colors'
+              >
+                Experience it now
+              </a>
+              <svg
+                width='22'
+                height='12'
+                viewBox='0 0 22 12'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M21.5303 6.53033C21.8232 6.23744 21.8232 5.76256 21.5303 5.46967L16.7574 0.696699C16.4645 0.403806 15.9896 0.403806 15.6967 0.696699C15.4038 0.989592 15.4038 1.46447 15.6967 1.75736L19.9393 6L15.6967 10.2426C15.4038 10.5355 15.4038 11.0104 15.6967 11.3033C15.9896 11.5962 16.4645 11.5962 16.7574 11.3033L21.5303 6.53033ZM0 6.75L21 6.75V5.25L0 5.25L0 6.75Z'
+                  fill='white'
+                />
+              </svg>
+            </span>
+          </div>
 
-function WorkflowItem({ icon, title, desc, color }: { icon: React.ReactNode, title: string, desc: string, color: string }) {
-  return (
-    <div className="flex gap-4">
-      <div className={`w-12 h-12 rounded-full ${color} flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.1)]`}>
-        {icon}
-      </div>
-      <div>
-        <h4 className="text-[18px] font-bold text-white mb-1">{title}</h4>
-        <p className="text-[15px] font-medium text-white/50 leading-relaxed">
-          {desc}
-        </p>
-      </div>
+          <div
+            className={`relative w-full md:w-[60%] h-[200px] md:h-full rounded-2xl overflow-hidden shadow-inner`}
+          >
+            <motion.div
+              className={`w-full h-full`}
+              style={{ scale: imageScale }}
+            >
+              <Image 
+                fill 
+                src={url} 
+                alt={title} 
+                className='object-cover opacity-90 hover:opacity-100 transition-opacity duration-500' 
+                unoptimized
+              />
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
-}
+};
