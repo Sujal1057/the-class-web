@@ -4,7 +4,9 @@ import { ReactLenis } from 'lenis/react';
 import { useTransform, motion, useScroll, MotionValue } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
-import Scene from '@/components/Scene';
+import dynamic from 'next/dynamic';
+
+const Scene = dynamic(() => import('@/components/Scene'), { ssr: false });
 
 const features = [
   {
@@ -182,11 +184,11 @@ const Card = ({
     >
       <motion.div
         style={{
-          backgroundColor: color,
+          backgroundColor: `${color}20`, // 12% opacity to let the blur show through clearly
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className={`flex flex-col relative -top-[15%] md:-top-[25%] h-[500px] w-[90%] md:w-[75%] rounded-3xl lg:p-10 sm:p-6 p-4 origin-top shadow-2xl border border-white/20`}
+        className={`flex flex-col relative -top-[15%] md:-top-[25%] h-[500px] w-[90%] md:w-[75%] rounded-3xl lg:p-10 sm:p-6 p-4 origin-top shadow-2xl border border-white/20 backdrop-blur-3xl`}
       >
         <h2 className='text-3xl md:text-4xl text-center font-bold mb-4 drop-shadow-md'>{title}</h2>
         <div className={`flex flex-col-reverse md:flex-row h-full mt-2 gap-6 md:gap-10 items-center`}>
@@ -222,7 +224,7 @@ const Card = ({
             className={`relative w-full md:w-[60%] h-[200px] md:h-full rounded-2xl overflow-hidden shadow-inner`}
           >
             <motion.div
-              className={`w-full h-full`}
+              className={`relative w-full h-full`}
               style={{ scale: imageScale }}
             >
               <Image 

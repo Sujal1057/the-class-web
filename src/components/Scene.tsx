@@ -1,17 +1,7 @@
 "use client";
 
 import React from 'react';
-import dynamic from 'next/dynamic';
-
-const ShaderGradientCanvas = dynamic(
-  () => import('@shadergradient/react').then((mod) => mod.ShaderGradientCanvas),
-  { ssr: false }
-);
-
-const ShaderGradient = dynamic(
-  () => import('@shadergradient/react').then((mod) => mod.ShaderGradient),
-  { ssr: false }
-);
+import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
 
 export default function Scene() {
   return (
