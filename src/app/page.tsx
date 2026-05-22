@@ -155,7 +155,7 @@ interface CardProps {
   targetScale: number;
 }
 
-const Card: React.FC<CardProps> = ({
+const Card = ({
   i,
   title,
   description,
@@ -165,7 +165,7 @@ const Card: React.FC<CardProps> = ({
   progress,
   range,
   targetScale,
-}) => {
+}: CardProps) => {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
