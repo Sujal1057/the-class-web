@@ -49,7 +49,7 @@ const features = [
   },
 ];
 
-export default function Home(): JSX.Element {
+export default function Home() {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
