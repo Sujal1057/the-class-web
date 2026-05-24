@@ -14,7 +14,7 @@ const features = [
     description:
       'Strict separation between Student and Class Representative (CR) workflows. CRs hold the keys to class management, while students enjoy a read-only, distraction-free environment locked behind secure access codes.',
     src: 'security.jpg',
-    link: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=500&auto=format&fit=crop',
+    link: '/premium_role_access.png',
     color: '#5196fd',
   },
   {
@@ -22,7 +22,7 @@ const features = [
     description:
       'A single source of truth for all study materials. Students can upload their notes for CR approval, ensuring high-quality resources. Store syllabus PDFs and access them anytime through our Supabase cloud storage.',
     src: 'notes.jpg',
-    link: 'https://images.unsplash.com/photo-1517842645767-c639042777db?w=500&auto=format&fit=crop',
+    link: '/premium_note_sharing.png',
     color: '#8f89ff',
   },
   {
@@ -30,7 +30,7 @@ const features = [
     description:
       'Say goodbye to confusing WhatsApp groups. Real-time timetable updates with cancellation and transfer notices instantly synced to every student in the class.',
     src: 'timetable.jpg',
-    link: 'https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=500&auto=format&fit=crop',
+    link: '/premium_live_timetables.png',
     color: '#13006c',
   },
   {
@@ -38,7 +38,7 @@ const features = [
     description:
       'Track deadlines, view syllabus PDFs, and keep the whole class synchronized with an interactive assignment dashboard. Never miss a submission again.',
     src: 'exams.jpg',
-    link: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&auto=format&fit=crop',
+    link: '/premium_exams_tracker.png',
     color: '#ed649e',
   },
   {
@@ -46,7 +46,7 @@ const features = [
     description:
       'Onboarding made simple. Joining a class automatically syncs the student\'s profile with the class\'s academic year, semester, branch, and division. No manual data entry required.',
     src: 'profile.jpg',
-    link: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop',
+    link: '/premium_profile_sync.png',
     color: '#fd521a',
   },
 ];
@@ -73,7 +73,7 @@ export default function Home() {
             <span className="font-bold text-xl text-white tracking-tight drop-shadow-md">ClassCR</span>
           </div>
           <button 
-            onClick={() => window.open('https://the-class.vercel.app', '_blank')}
+            onClick={() => window.open('https://the-class-mu.vercel.app/', '_blank')}
             className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-[14px] hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
           >
             Launch App
@@ -132,7 +132,7 @@ export default function Home() {
           </h1>
           <div className='relative z-10 flex flex-col items-center justify-center pb-12 gap-4'>
             <button 
-              onClick={() => window.open('https://the-class.vercel.app', '_blank')}
+              onClick={() => window.open('https://the-class-mu.vercel.app/', '_blank')}
               className="px-8 py-4 rounded-full bg-white text-black font-bold text-[18px] hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]"
             >
               Start Using ClassCR Today
